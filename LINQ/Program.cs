@@ -2,6 +2,8 @@
 {
     internal class Program()
     {
+        private static readonly int[] scores = { 97, 92, 81, 60 };
+
         public static void Main()
         {
             FirstExample();
@@ -11,7 +13,6 @@
         private static void FirstExample()
         {
             Console.WriteLine("-- First example --");
-            int[] scores = { 97, 92, 81, 60 };
 
             // Select scores that are > 80
             IEnumerable<int> scoreQuery =
