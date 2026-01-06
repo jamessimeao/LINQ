@@ -46,9 +46,9 @@
 
         public static void Main()
         {
-            FirstExample();
-            BasicQuery();
-            WhatAQueryDoes();
+            //FirstExample();
+            //BasicQuery();
+            //WhatAQueryDoes();
         }
 
         private static void FirstExample()
