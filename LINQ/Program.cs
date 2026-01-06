@@ -49,6 +49,7 @@
             //FirstExample();
             //BasicQuery();
             //WhatAQueryDoes();
+            Syntax();
         }
 
         private static void FirstExample()
@@ -138,6 +139,27 @@
 
             int scoreCount = highScoreQuery3.Count();
             Console.WriteLine($"\nscoreCount = {scoreCount}");
+        }
+
+        private static void Syntax()
+        {
+            Console.WriteLine("\nQuery syntax");
+            IEnumerable<City> queryMajorCities =
+                from city in cities
+                where city.Population > 30_000_000
+                select city;
+
+            foreach(City city in queryMajorCities)
+            {
+                Console.WriteLine(city);
+            }
+
+            Console.WriteLine("\nMethod sintax");
+            IEnumerable<City> queryMajorCities2 = cities.Where(city => city.Population > 30_000_000);
+            foreach(City city in queryMajorCities2)
+            {
+                Console.WriteLine(city);
+            }
         }
     }
 }
