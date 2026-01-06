@@ -49,7 +49,8 @@
             //FirstExample();
             //BasicQuery();
             //WhatAQueryDoes();
-            Syntax();
+            //Syntax();
+            GroupClause();
         }
 
         private static void FirstExample()
@@ -159,6 +160,37 @@
             foreach(City city in queryMajorCities2)
             {
                 Console.WriteLine(city);
+            }
+        }
+
+        private static void GroupClause()
+        {
+            Console.WriteLine("\nGroup clause");
+            var queryCountryGroups =
+                from country in countries
+                group country by country.Name[0];
+
+            Console.WriteLine("countries");
+            foreach (IGrouping<char, Country> group in queryCountryGroups)
+            {
+                Console.WriteLine($"key = {group.Key}");
+                foreach(Country country in group)
+                {
+                    Console.WriteLine(country.Name);
+                }
+            }
+
+            Console.WriteLine("\ncities");
+            var queryCityGroups =
+                from city in cities
+                group city by city.Name[0];
+            foreach(IGrouping<char, City> group in queryCityGroups)
+            {
+                Console.WriteLine($"key = {group.Key}");
+                foreach(City city in group)
+                {
+                    Console.WriteLine(city.Name);
+                }
             }
         }
     }
