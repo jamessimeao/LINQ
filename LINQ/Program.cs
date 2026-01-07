@@ -56,7 +56,8 @@ namespace LINQ
             //GroupClause();
             //Projection();
             //IntoClause();
-            WhereClause();
+            //WhereClause();
+            OrderbyClause();
         }
 
         private static void FirstExample()
@@ -242,7 +243,7 @@ namespace LINQ
 
         private static void WhereClause()
         {
-            Console.WriteLine("Where clause");
+            Console.WriteLine("\nWhere clause");
 
             IEnumerable<City> queryCityPop =
                 from city in cities
@@ -252,6 +253,20 @@ namespace LINQ
             foreach(City city in queryCityPop)
             {
                 Console.WriteLine(city);
+            }
+        }
+
+        private static void OrderbyClause()
+        {
+            Console.WriteLine("\nOrderby clause");
+            IEnumerable<Country> querySortedCountries =
+                from country in countries
+                orderby country.Area ascending, country.Population descending // ascending is optional
+                select country;
+
+            foreach(Country country in querySortedCountries)
+            {
+                Console.WriteLine($"Area = {country.Area}, Population = {country.Population}");
             }
         }
     }
