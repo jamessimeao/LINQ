@@ -1,4 +1,6 @@
-﻿namespace LINQ
+﻿using System.Security.Cryptography;
+
+namespace LINQ
 {
     internal record City(string Name, long Population);
     internal record Country(string Name, double Area, long Population, List<City> Cities);
@@ -50,7 +52,8 @@
             //BasicQuery();
             //WhatAQueryDoes();
             //Syntax();
-            GroupClause();
+            //GroupClause();
+            Projection();
         }
 
         private static void FirstExample()
@@ -191,6 +194,23 @@
                 {
                     Console.WriteLine(city.Name);
                 }
+            }
+        }
+
+        private static void Projection()
+        {
+            // We can use the select clause to create an anonymous object
+            var queryNameAndPop =
+            from country in countries
+            select new
+            {
+                Name = country.Name,
+                Population = country.Population,
+            };
+
+            foreach(var v in queryNameAndPop)
+            {
+                Console.WriteLine(v);
             }
         }
     }
