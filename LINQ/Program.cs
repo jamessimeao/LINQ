@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography;
+using System.Xml.Serialization;
 
 namespace LINQ
 {
@@ -53,7 +54,8 @@ namespace LINQ
             //WhatAQueryDoes();
             //Syntax();
             //GroupClause();
-            Projection();
+            //Projection();
+            IntoClause();
         }
 
         private static void FirstExample()
@@ -199,6 +201,7 @@ namespace LINQ
 
         private static void Projection()
         {
+            Console.WriteLine("\nProjection");
             // We can use the select clause to create an anonymous object
             var queryNameAndPop =
             from country in countries
@@ -211,6 +214,28 @@ namespace LINQ
             foreach(var v in queryNameAndPop)
             {
                 Console.WriteLine(v);
+            }
+        }
+
+        private static void IntoClause()
+        {
+            Console.WriteLine("\nInto clause");
+            // Use into to create a temporary identifier that stores a query
+            var percentileQuery =
+                from country in countries
+                let percentile = (int)country.Population / 1_000
+                group country by percentile into countryGroup
+                where countryGroup.Key >= 20
+                orderby countryGroup.Key
+                select countryGroup;
+
+            foreach(IGrouping<int, Country> group in percentileQuery)
+            {
+                Console.WriteLine($"Key = {group.Key}");
+                foreach (Country country in group)
+                {
+                    Console.WriteLine(country.Name);
+                }
             }
         }
     }
