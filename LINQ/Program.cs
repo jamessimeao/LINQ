@@ -49,7 +49,6 @@ namespace LINQ
 
         // For join clause
         private static readonly string[] categories = ["fruit", "drink"];
-        private record Product(string Name, string Category);
 
         private static Product[] products =
         {
