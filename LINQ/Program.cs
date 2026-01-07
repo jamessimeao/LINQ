@@ -55,7 +55,8 @@ namespace LINQ
             //Syntax();
             //GroupClause();
             //Projection();
-            IntoClause();
+            //IntoClause();
+            WhereClause();
         }
 
         private static void FirstExample()
@@ -236,6 +237,21 @@ namespace LINQ
                 {
                     Console.WriteLine(country.Name);
                 }
+            }
+        }
+
+        private static void WhereClause()
+        {
+            Console.WriteLine("Where clause");
+
+            IEnumerable<City> queryCityPop =
+                from city in cities
+                where city.Population is < 15_000_000 and > 10_000_000
+                select city;
+
+            foreach(City city in queryCityPop)
+            {
+                Console.WriteLine(city);
             }
         }
     }
