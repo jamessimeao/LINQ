@@ -63,8 +63,6 @@ namespace LINQ
 
         };
 
-
-
         public static void Main()
         {
             //FirstExample();
@@ -76,7 +74,8 @@ namespace LINQ
             //IntoClause();
             //WhereClause();
             //OrderbyClause();
-            JoinClause();
+            //JoinClause();
+            LetClause();
         }
 
         private static void FirstExample()
@@ -305,6 +304,22 @@ namespace LINQ
             foreach(var v in categoryQuery)
             {
                 Console.WriteLine(v);            }
+        }
+
+        private static void LetClause()
+        {
+            Console.WriteLine("\nLet clause");
+
+            string[] names = ["Svetlana Omelchenko", "Claire O'Donnell", "Sven Mortensen", "Cesar Garcia"];
+            IEnumerable<string> queryFirstNames =
+                from name in names
+                let firstName = name.Split(' ')[0]
+                select firstName;
+
+            foreach(string firstName in queryFirstNames)
+            {
+                Console.WriteLine(firstName);
+            }
         }
     }
 }
