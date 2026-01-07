@@ -62,6 +62,21 @@ namespace LINQ
 
         };
 
+        // For subquery
+        private record Student(int Year, double[] ExamScores);
+
+        private static Student[] students =
+        {
+            new Student(1980, [1,2,3,4]),
+            new Student(1980, [5,6,7,8]),
+            new Student(1980, [10,10,10,10]),
+            new Student(1980, [9,9,9,9]),
+            new Student(1981, [7,7,7,7]),
+            new Student(1981, [5,4,6,3]),
+            new Student(1982, [8,8,8,8]),
+            new Student(1982, [5,5,5,5]),
+        };
+
         public static void Main()
         {
             //FirstExample();
@@ -74,7 +89,8 @@ namespace LINQ
             //WhereClause();
             //OrderbyClause();
             //JoinClause();
-            LetClause();
+            //LetClause();
+            Subquery();
         }
 
         private static void FirstExample()
@@ -318,6 +334,29 @@ namespace LINQ
             foreach(string firstName in queryFirstNames)
             {
                 Console.WriteLine(firstName);
+            }
+        }
+
+        private static void Subquery()
+        {
+            Console.WriteLine("\nSubquery");
+
+            var queryGroupMax =
+                from student in students
+                group student by student.Year into studentGroup
+                select new
+                {
+                    Level = studentGroup.Key,
+                    HighestScore =
+                    (
+                        from student2 in studentGroup
+                        select student2.ExamScores.Average()
+                    ).Max(),
+                };
+
+            foreach(var v in queryGroupMax)
+            {
+                Console.WriteLine(v);
             }
         }
     }
