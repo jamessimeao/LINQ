@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Xml.Serialization;
 
 namespace LINQ
@@ -46,6 +47,23 @@ namespace LINQ
             new Country ("Saint Kitts & Nevis", 261, 53_000, [new City("Basseterre", 13_000)])
         ];
 
+        // For join clause
+        private static readonly string[] categories = ["fruit", "drink"];
+        private record Product(string Name, string Category);
+
+        private static Product[] products =
+        {
+            new Product("banana", "fruit"),
+            new Product("apple", "fruit"),
+            new Product("orange", "fruit"),
+            new Product("juice", "drink"),
+            new Product("water", "drink"),
+            new Product("iron", "metal"),
+            new Product("gold", "metal"),
+
+        };
+
+
 
         public static void Main()
         {
@@ -57,7 +75,8 @@ namespace LINQ
             //Projection();
             //IntoClause();
             //WhereClause();
-            OrderbyClause();
+            //OrderbyClause();
+            JoinClause();
         }
 
         private static void FirstExample()
@@ -268,6 +287,24 @@ namespace LINQ
             {
                 Console.WriteLine($"Area = {country.Area}, Population = {country.Population}");
             }
+        }
+
+        private static void JoinClause()
+        {
+            Console.WriteLine("\nJoin clause");
+
+            var categoryQuery =
+                from cat in categories
+                join prod in products on cat equals prod.Category
+                select new
+                {
+                    Category = cat,
+                    Name = prod.Name,
+                };
+
+            foreach(var v in categoryQuery)
+            {
+                Console.WriteLine(v);            }
         }
     }
 }
